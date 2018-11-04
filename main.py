@@ -87,7 +87,7 @@ def time_to_float(time_str):
 def calculate_pump_time():
     usage_in_hours = find_most_recent_score()
     pump_rate_per_second_in_mL = 1.4
-    cpap_water_usage_per_hour_in_mL = 20.0
+    cpap_water_usage_per_hour_in_mL = 18.0
     pump_seconds_per_usage_hour = cpap_water_usage_per_hour_in_mL / pump_rate_per_second_in_mL
     usage_float = time_to_float(usage_in_hours)
     pump_run_time = usage_float * pump_seconds_per_usage_hour
@@ -111,7 +111,7 @@ def run():
     pump_seconds = calculate_pump_time()
     if get_device_status() and pump_seconds != 0:
         print("Pumping for: {0} seconds.".format(pump_seconds))
-        run_pump(pump_seconds)
+        #run_pump(pump_seconds)
     elif not get_device_status():
         print("Device not responding")
     else:
