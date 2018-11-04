@@ -106,15 +106,12 @@ def run_pump(seconds):
     address = 'https://api.particle.io/v1/devices/{0}/{1}'.format(device_id, particle_funtion)
     data = {'args': argument, 'access_token': access_token}
     post = requests.post(address, data=data)
-    device_response = post.json()
-    print(device_response['return_value'])
 
 def run():
     pump_seconds = calculate_pump_time()
     if get_device_status() and pump_seconds != 0:
-        print(pump_seconds)
-        print("running_pump")
-        #run_pump(pump_seconds)
+        print("Pumping for: {0} seconds.".format(pump_seconds))
+        run_pump(pump_seconds)
     elif not get_device_status():
         print("Device not responding")
     else:
