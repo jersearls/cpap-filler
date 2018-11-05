@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")"/../ && pwd)
+SOURCE_DIR="${DIR}"/cpap_filler
+BUILD_DIR="${DIR}"/build
+TMP_DIR="${DIR}"/tmp
+SITE_PACKAGES=$(pipenv --venv)/lib/python3.7/site-packages
+
+rm -rf "${BUILD_DIR}"
+rm -rf "${TMP_DIR}"
+mkdir -p "${BUILD_DIR}"
+mkdir -p "${TMP_DIR}"
+
+cp "${SOURCE_DIR}"/*.py "${BUILD_DIR}"/
+cp -r "${SITE_PACKAGES}"/* "${BUILD_DIR}"/
+echo "Build Complete"
+
+cd "${BUILD_DIR}" && zip --recurse-paths "${TMP_DIR}/cpap_filler.zip" .
+
+echo "Zip complete"

@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")"/../ && pwd)
+BUILD_DIR="${DIR}"/build
+TMP_DIR="${DIR}"/tmp
+
+rm -rf "${TMP_DIR}"
+mkdir -p "${TMP_DIR}"
+
+cd "${BUILD_DIR}" && zip --recurse-paths "${TMP_DIR}/cpap_filler.zip" .
+
+echo "Zip complete"
+#aws s3 cp "${TMP_DIR}/cpap_filler.zip" s3://cpap-filler/cpap_filler.zip
+
