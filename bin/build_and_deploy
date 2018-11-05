@@ -6,7 +6,7 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")"/../ && pwd)
 SOURCE_DIR="${DIR}"/cpap_filler
 BUILD_DIR="${DIR}"/build
 TMP_DIR="${DIR}"/tmp
-SITE_PACKAGES=$(pipenv --venv)/lib/python3.7/site-packages
+SITE_PACKAGES=$(pipenv --venv)/lib/python3.6/site-packages
 
 rm -rf "${BUILD_DIR}"
 rm -rf "${TMP_DIR}"
