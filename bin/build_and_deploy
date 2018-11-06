@@ -20,3 +20,4 @@ echo "Build Complete"
 cd "${BUILD_DIR}" && zip --recurse-paths "${TMP_DIR}/cpap_filler.zip" .
 
 echo "Zip complete"
+
