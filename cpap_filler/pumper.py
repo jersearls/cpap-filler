@@ -1,4 +1,5 @@
 import requests
+import logging
 import os
 from scraper import Scraper
 
@@ -7,6 +8,7 @@ class Pumper():
         self.access_token = os.getenv("PARTICLE_ACCESS_TOKEN")
         self.device_id = os.getenv("PARTICLE_DEVICE_ID")
         self.scraper = Scraper()
+        self.logger = logging.getLogger(__name__)
 
     def time_to_float(self, time_str):
         hours, minutes = time_str.split(':')
@@ -38,10 +40,10 @@ class Pumper():
     def run(self):
         pump_seconds = self.calculate_pump_time()
         if self.get_device_status() and pump_seconds != 0:
-            print("Pumping for: {0} seconds.".format(pump_seconds))
+            self.logger.info("Pumping for: {0} seconds.".format(pump_seconds))
             #self.call_photon_pump_function(pump_seconds)
         elif not get_device_status():
-            print("Device not responding")
+            self.logger.warn("Device not responding")
         else:
-            print("CPAP data not available")
+            self.logger.warn("CPAP data not available")
 
