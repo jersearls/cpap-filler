@@ -7,6 +7,8 @@ class Pumper():
     def __init__(self):
         self.access_token = os.getenv("PARTICLE_ACCESS_TOKEN")
         self.device_id = os.getenv("PARTICLE_DEVICE_ID")
+        self.pump_rate = float(os.getenv("PUMP_RATE"))
+        self.consumption_rate = float(os.getenv("CONSUMPTION_RATE"))
         self.scraper = Scraper()
         self.logger = logging.getLogger(__name__)
 
@@ -16,8 +18,8 @@ class Pumper():
 
     def calculate_pump_time(self):
         usage_in_hours = self.scraper.find_most_recent_score()
-        pump_rate_per_second_in_mL = 1.4
-        cpap_water_usage_per_hour_in_mL = 18.0
+        pump_rate_per_second_in_mL = self.pump_rate
+        cpap_water_usage_per_hour_in_mL = self.consumption_rate
         pump_seconds_per_usage_hour = cpap_water_usage_per_hour_in_mL / pump_rate_per_second_in_mL
         usage_float = self.time_to_float(usage_in_hours)
         pump_run_time = usage_float * pump_seconds_per_usage_hour
@@ -42,7 +44,7 @@ class Pumper():
         if self.get_device_status() and pump_seconds != 0:
             self.logger.info("Pumping for: {0} seconds.".format(pump_seconds))
             #self.call_photon_pump_function(pump_seconds)
-        elif not get_device_status():
+        elif not self.get_device_status():
             self.logger.warn("Device not responding")
         else:
             self.logger.warn("CPAP data not available")

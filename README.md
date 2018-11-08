@@ -28,10 +28,31 @@ python -c 'import lambda_function; lambda_function.lambda_handler("event", "cont
 
 ## Configure water use
 
-Airsense 10 water reservoir holds 380mL at MAX line. Each quartile is 95mL.
+### Calibration
 
-At a humidity level of 4, the machine uses roughly 18mL per hour. 
+Before using the machine you will need to calibrate the pump output.
 
-The pump pumps approx. 1.4mL per second of water.
+A script is included to facilitate this.
 
+Place the pump above a graduated cylinder and primed with water.
+
+From the root directory run the following command and answer the prompts:
+
+```bash
+python calibrate/calibrate.py
+```
+
+The script will output a mL/s value. This value will be added to the local `.env` file.
+
+#### NOTE
+
+The Airsense 10 water reservoir holds 380mL at MAX line. 
+Each quarter tick mark is placed at 95mL increments.
+
+At a humidity level of 4, the machine uses roughly one quarter tank per 7 hours.
+
+This equates to around 13.57 mL/hour of water consumption.
+
+This variable is subject to change with varying humidity and weather. 
+It is stored as an environmental variable in the `.env` file. 
 

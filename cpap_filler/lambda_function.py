@@ -10,6 +10,6 @@ def lambda_handler(event, context):
     logging.basicConfig(format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
-    cfg = botocore.config.Config(retries={'max_attempts': 3})
-    client = boto3.client('lambda', config=cfg)
+    #cfg = botocore.config.Config(retries={'max_attempts': 0})
+    #client = boto3.client('lambda', config=cfg)
     Pumper().run()
