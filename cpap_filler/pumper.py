@@ -43,7 +43,7 @@ class Pumper():
         pump_seconds = self.calculate_pump_time()
         if self.get_device_status() and pump_seconds != 0:
             self.logger.info("Pumping for: {0} seconds.".format(pump_seconds))
-            #self.call_photon_pump_function(pump_seconds)
+            self.call_photon_pump_function(pump_seconds)
         elif not self.get_device_status():
             self.logger.warn("Device not responding")
         else:

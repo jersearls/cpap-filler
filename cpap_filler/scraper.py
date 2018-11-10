@@ -78,4 +78,3 @@ class Scraper():
         for score in score_json:
             if score["ChartDate"] == date_yesterday:
                 return score["UsageDisplay"]
-
