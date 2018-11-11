@@ -1,22 +1,22 @@
 import requests
 import fileinput
 import time
-import os
-from os import fdopen, remove
+import re
+from os import fdopen, remove, getenv
 from tempfile import mkstemp
 from shutil import move
 
 class Calibrate():
     def __init__(self):
-        self.access_token = os.getenv("PARTICLE_ACCESS_TOKEN")
-        self.device_id = os.getenv("PARTICLE_DEVICE_ID")
+        self.access_token = getenv("PARTICLE_ACCESS_TOKEN")
+        self.device_id = getenv("PARTICLE_DEVICE_ID")
 
     def replace_env_var(self, pump_rate):
         fh, abs_path = mkstemp()
         with fdopen(fh,'w') as new_file:
             with open('.env') as old_file:
                 for line in old_file:
-                    new_file.write(line.replace("PUMP_RATE=", "PUMP_RATE={0}".format(pump_rate)))
+                    new_file.write(re.sub(r'PUMP_RATE=(.*)', "PUMP_RATE={0}".format(pump_rate), line))
         remove('.env')
         move(abs_path, '.env')
 

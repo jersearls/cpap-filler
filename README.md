@@ -28,7 +28,7 @@ env EDITOR=vim crontab -e
 
 Cron command to run filler at 1:30pm every day
 
-`30 13 * * * /Users/xjxs415/code/cpap-filler/bin/run`
+`30 13 * * * <path_to_repo>/cpap-filler/bin/run`
 
 ## Pump Calibration
 
