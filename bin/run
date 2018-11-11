@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+export PATH="/usr/local/bin:/usr/bin:/bin"
+
+DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")"/../ && pwd)
+SOURCE_DIR="${DIR}"/cpap_filler
+
+cd "${SOURCE_DIR}"
+
+#run python script using pipenv and append stdout and stderror to log file
+pipenv run python -c \
+  'import lambda_function; lambda_function.lambda_handler("event", "context")' \
+  2>&1 | tee -a "${DIR}"/run.log
+
