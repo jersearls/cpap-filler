@@ -12,15 +12,17 @@ This project uses Pipenv to manage dependencies
 
 * Fill variables as shown in `.env.example` file into an empty `.env` file at the project root
 
-## Local Execution
 
-To run the program locally, execute the following bash script from the root of the project
+## Working with CPAP Filler
+### Local Execution
+
+To run the program locally, execute the following bash script from the root of the project:
 
 ```bash
 ./bin/run
 ```
 
-## Running on a Local CRON
+### Running on a Local CRON
 
 ```bash
 env EDITOR=vim crontab -e
@@ -30,7 +32,17 @@ Cron command to run filler at 1:30pm every day
 
 `30 13 * * * <path_to_repo>/cpap-filler/bin/run`
 
-## Pump Calibration
+### Deploy to AWS Lambda
+
+To create a deployable zip file of the project that can be uploaded to AWS Lambda, execute the following bash script from the root of the project:
+
+```bash
+./bin/build_and_deploy
+```
+
+The `/tmp` folder created by the script contains the deployable zip file.
+
+### Pump Calibration
 
 Before using the machine you will need to calibrate the pump output.
 
@@ -47,7 +59,8 @@ pipenv run python calibrate/calibrate.py
 The script will output a mL/s value. This value will be added to the local `.env` file.
 
 
-## NOTES
+
+#### NOTES
 
 The Airsense 10 water reservoir holds 380mL at MAX line. 
 Each quarter tick mark is placed at 95mL increments.

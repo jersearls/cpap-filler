@@ -33,12 +33,14 @@ class Calibrate():
 
     def run(self):
         pump_seconds = 30
+        print("Please prime pump and place output hose into a graduated cylinder.") 
+        print("Device will emit water for 30 seconds.")
         user_ready = input("Ready to being calibration? y/N: ")
 
         if user_ready == "y":
             print("Pumping for: {0} seconds.".format(pump_seconds))
-            #self.call_photon_pump_function(pump_seconds)
-            time.sleep(3)
+            self.call_photon_pump_function(pump_seconds)
+            time.sleep(28)
             mL_dispensed = float(input("Enter the number of mL dispensed: "))
             pump_rate = self.calculate_pump_rate(mL_dispensed)
             print("Current pump rate is {0} mL per second.".format(pump_rate))
