@@ -48,5 +48,5 @@ class Pumper():
         elif not self.get_device_status():
             self.logger.warn("Device not responding")
         else:
-            self.logger.warn("CPAP data not available")
+            self.logger.warn("CPAP not used previous night.")
 

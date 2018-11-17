@@ -32,6 +32,10 @@ Cron command to run filler at 1:30pm every day
 
 `30 13 * * * <path_to_repo>/cpap-filler/bin/run`
 
+#### Note for Mojave Users
+
+Crontab needs access to user libraries to execute dependencies. This access was revoked in MacOS Mojave. [Click here](https://blog.bejarano.io/fixing-cron-jobs-in-mojave.html) to implement a fix. 
+
 ### Deploy to AWS Lambda
 
 To create a deployable zip file of the project that can be uploaded to AWS Lambda, execute the following bash script from the root of the project:
