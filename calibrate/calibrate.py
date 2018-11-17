@@ -31,21 +31,33 @@ class Calibrate():
         data = {'args': argument, 'access_token': self.access_token}
         post = requests.post(address, data=data)
 
+    def prime(self, input_prompt="Begin"):
+        if input_prompt == "Begin":
+            print("Priming process runs the pump for 10 seconds.")
+            print("Please place pump output hose into an empty vessel.") 
+
+        user_ready = input("{0} pump priming? y/N: ".format(input_prompt))
+
+        if user_ready == "y":
+            self.call_photon_pump_function(10)
+            time.sleep(10)
+            self.prime("Continue")
+
     def run(self):
-        pump_seconds = 30
-        print("Please prime pump and place output hose into a graduated cylinder.") 
+        self.prime()
         print("Device will emit water for 30 seconds.")
+        print("Please place pump output hose into an EMPTY 50 mL graduated cylinder.") 
         user_ready = input("Ready to being calibration? y/N: ")
 
         if user_ready == "y":
-            print("Pumping for: {0} seconds.".format(pump_seconds))
-            self.call_photon_pump_function(pump_seconds)
-            time.sleep(28)
+            print("Pumping for: 30 seconds.")
+            self.call_photon_pump_function(30)
+            time.sleep(30)
             mL_dispensed = float(input("Enter the number of mL dispensed: "))
             pump_rate = self.calculate_pump_rate(mL_dispensed)
             print("Current pump rate is {0} mL per second.".format(pump_rate))
             self.replace_env_var(pump_rate)
-        elif not get_device_status() or user_ready != "y":
+        else:
             print("Calibration aborted")
 
 Calibrate().run()
