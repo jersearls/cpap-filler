@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 python-dotenv = "*"
-lxml = "*"
+lxml = "==3.8.0"
 
 [dev-packages]
 

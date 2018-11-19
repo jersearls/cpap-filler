@@ -17,7 +17,9 @@ class Pumper():
         return (int(hours)*60 + int(minutes)) / 60.0
 
     def calculate_pump_time(self):
-        usage_in_hours = self.scraper.find_most_recent_score()
+        score = self.scraper.find_most_recent_score()
+        self.logger.info(score)
+        usage_in_hours = score["UsageDisplay"]
         self.logger.info("Slept for {0} hours.".format(usage_in_hours))
         pump_rate_per_second_in_mL = self.pump_rate
         cpap_water_usage_per_hour_in_mL = self.consumption_rate

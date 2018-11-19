@@ -15,9 +15,19 @@ mkdir -p "${TMP_DIR}"
 
 cp "${SOURCE_DIR}"/*.py "${BUILD_DIR}"/
 cp -r "${SITE_PACKAGES}"/* "${BUILD_DIR}"/
+rm -rf "${BUILD_DIR}"/lxml
+cp -R "${DIR}"/lxml_aws_binaries/lxml/ "${BUILD_DIR}"/lxml/
 echo "Build Complete"
 
-cd "${BUILD_DIR}" && zip --recurse-paths "${TMP_DIR}/cpap_filler.zip" .
+cd "${BUILD_DIR}" && zip --recurse-paths "${TMP_DIR}"/cpap_filler.zip .
 
 echo "Zip complete"
+
+aws lambda update-function-code \
+    --function-name "Jeremy-Cpap-Filler" \
+    --zip-file "fileb://${TMP_DIR}"/cpap_filler.zip \
+    --publish \
+    --profile personal
+
+echo "Upload Complete"
 

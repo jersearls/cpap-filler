@@ -77,4 +77,4 @@ class Scraper():
         date_yesterday = yesterday.strftime("%A, %B %-d")
         for score in score_json:
             if score["ChartDate"] == date_yesterday:
-                return score["UsageDisplay"]
+                return score
